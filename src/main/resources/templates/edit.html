@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Waste Pickup</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #89f7fe, #66a6ff);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 600px;
+        }
+
+        h1 {
+            color: #005792;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        input, select {
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #0078d4;
+            box-shadow: 0 0 5px rgba(0, 120, 212, 0.3);
+        }
+
+        button {
+            background-color: #005792;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #003f6b;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            input, select, button {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Edit Waste Pickup Request</h1>
+        <form action="/wastepickup/update" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+            <input type="hidden" name="id" th:value="${wastePickup.id}">
+
+            <label>Waste Type:</label>
+            <select name="wasteType">
+                <option value="Plastic" th:selected="${wastePickup.wasteType == 'Plastic'}">Plastic</option>
+                <option value="Electronic" th:selected="${wastePickup.wasteType == 'Electronic'}">Electronic</option>
+                <option value="Organic" th:selected="${wastePickup.wasteType == 'Organic'}">Organic</option>
+                <option value="Hazardous" th:selected="${wastePickup.wasteType == 'Hazardous'}">Hazardous</option>
+                <option value="Metal" th:selected="${wastePickup.wasteType == 'Metal'}">Metal</option>
+                <option value="Glass" th:selected="${wastePickup.wasteType == 'Glass'}">Glass</option>
+                <option value="Paper" th:selected="${wastePickup.wasteType == 'Paper'}">Paper</option>
+                <option value="Textile" th:selected="${wastePickup.wasteType == 'Textile'}">Textile</option>
+            </select>
+
+            <label>Pickup Location:</label>
+            <input type="text" name="pickupLocation" th:value="${wastePickup.pickupLocation}" required>
+
+            <label>Pickup Date & Time:</label>
+            <input type="datetime-local" name="pickupDateTime" th:value="${wastePickup.pickupDateTime}" required>
+
+            <label>User Name:</label>
+            <input type="text" name="userName" th:value="${wastePickup.userName}" readonly>
+
+            <button type="submit">Update Request</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Smart Waste Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(120deg, #a1c4fd, #c2e9fb);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 30px;
+        }
+
+        h1, h2 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: flex-end; /* Aligns links to the right */
+            align-items: center;
+            background-color: #1e3c72;
+            padding: 10px 20px;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 1000px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-right {
+            display: flex;
+            gap: 15px; /* Adds spacing between the links */
+        }
+
+        .navbar-right a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-right a:hover {
+            color: #ff5722;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 1000px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        form {
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: 600;
+            margin-top: 15px;
+            display: block;
+            color: #333;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 14px;
+            margin-top: 6px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            transition: border 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border: 1px solid #1e3c72;
+            outline: none;
+        }
+
+        button {
+            background-color: #1e3c72;
+            color: white;
+            font-weight: bold;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #15305c;
+            transform: scale(1.05);
+        }
+
+        #centerResults a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #1e3c72;
+            font-weight: bold;
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+
+        #centerResults a:hover {
+            color: #ff5722;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #1e3c72;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+            transition: background-color 0.3s ease;
+        }
+
+        a {
+            color: #1e3c72;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #ff5722;
+        }
+    </style>
+</head>
+<body>
+    <h1>Smart Waste Management System</h1>
+    <div class="navbar">
+        <div class="navbar-right">
+            <a href="/profile">Profile</a>
+            <form th:action="@{/logout}" method="post" style="display: inline;">
+                <button type="submit" style="background: none; border: none; color: white; font-weight: bold; cursor: pointer; padding: 0;">
+                    Logout
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <form action="/wastepickup/create" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+            <label>Waste Type:</label> 
+            <select name="wasteType">
+                <option value="Plastic">Plastic</option>
+                <option value="Electronic">Electronic</option>
+                <option value="Organic">Organic</option>
+                <option value="Hazardous">Hazardous</option>
+                <option value="Metal">Metal</option>
+                <option value="Glass">Glass</option>
+                <option value="Paper">Paper</option>
+                <option value="Textile">Textile</option>
+            </select>
+
+            <label>Pickup Location:</label> 
+            <input type="text" name="pickupLocation" required>
+
+
+            <label>Pickup Date & Time:</label> 
+            <input type="datetime-local" name="pickupDateTime" required>
+
+
+            <label>User Name:</label> 
+            <input type="text" name="userName" required>
+
+            <button type="submit">🚛 Request Pickup</button>
+        </form>
+
+        <h2>All Waste Pickup Requests</h2>
+        <table>
+            <tr>
+                <th>Waste Type</th>
+                <th>Pickup Location</th>
+                <th>Pickup Date & Time</th>
+                <th>Status</th>
+                <th>User Name</th>
+                <th>Actions</th>
+            </tr>
+            <tr th:each="wastePickup : ${wastePickups}">
+                <td th:text="${wastePickup.wasteType}"></td>
+                <td th:text="${wastePickup.pickupLocation}"></td>
+                <td th:text="${wastePickup.pickupDateTime}"></td>
+                <td th:text="${wastePickup.status}"></td>
+                <td th:text="${wastePickup.userName}"></td>
+                <td>
+                    <a th:href="@{'/wastepickup/edit/' + ${wastePickup.id}}">Edit</a> |
+                    <a th:href="@{'/wastepickup/delete/' + ${wastePickup.id}}" onclick="return confirm('Are you sure?')">Delete</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    
+</body>
+</html>

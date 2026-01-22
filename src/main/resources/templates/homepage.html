@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome - Smart Waste Management</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+            font-family: 'Segoe UI', sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .container {
+            background-color: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        a {
+            display: inline-block;
+            margin: 15px;
+            padding: 12px 25px;
+            background-color: #1e3c72;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #15305c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Smart Waste Management</h1>
+        <p>Efficiently manage waste pickups and recycling in your community.</p>
+        <a href="/login">🔐 Login</a>
+        <a href="/register">📝 Register</a>
+        <a href="/waste-pickup">🚛 Go to Waste Dashboard</a>
+        <a href="/profile">👤 View Profile</a>
+    </div>
+</body>
+</html>

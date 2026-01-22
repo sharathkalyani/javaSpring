@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register - Smart Waste Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(120deg, #a1c4fd, #c2e9fb);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            font-weight: 600;
+            margin-top: 15px;
+            display: block;
+            color: #333;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 14px;
+            margin-top: 6px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            transition: border 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border: 1px solid #1e3c72;
+            outline: none;
+        }
+
+        button {
+            background-color: #1e3c72;
+            color: white;
+            font-weight: bold;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #15305c;
+            transform: scale(1.05);
+        }
+
+        .text-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .text-link a {
+            color: #1e3c72;
+            font-weight: bold;
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+
+        .text-link a:hover {
+            color: #ff5722;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Register to Smart Waste Management</h1>
+    <div class="container">
+        <form th:action="@{/register}" method="post" th:object="${user}">
+
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" th:field="*{fullName}" placeholder="Your full name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" th:field="*{email}" placeholder="your@email.com" required>
+
+            <label for="phoneNumber">Phone Number</label>
+            <input type="tel" id="phoneNumber" th:field="*{phoneNumber}" placeholder="e.g. 9876543210" required>
+
+            <label for="username">Username</label>
+            <input type="text" id="username" th:field="*{username}" placeholder="Choose a username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" th:field="*{password}" placeholder="Create a password" required>
+
+            <label for="role">Select Role</label>
+            <select id="role" th:field="*{role}" required>
+                <option value="" disabled selected>Select your role</option>
+                <option value="ROLE_CITIZEN">Citizen</option>
+                <option value="ROLE_COLLECTOR">Collector</option>
+                <option value="ROLE_RECYCLING_STAFF">Recycling Staff</option>
+            </select>
+
+            <button type="submit">📝 Register Account</button>
+        </form>
+
+        <div class="text-link">
+            Already have an account? <a href="/login">Login here</a>
+        </div>
+    </div>
+
+</body>
+</html>

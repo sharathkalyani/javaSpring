@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Result</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(120deg, #a1c4fd, #c2e9fb);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 900px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            color: #1e3c72;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            text-align: center;
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #1e3c72;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #1e3c72;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #ff5722;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #1e3c72;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #15305c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Waste Pickup Report</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Waste Type</th>
+                    <th>Pickup Location</th>
+                    <th>Pickup DateTime</th>
+                    <th>Status</th>
+                    <th>Requested By</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pickup : ${reportData}">
+                    <td th:text="${pickup.id}">1</td>
+                    <td th:text="${pickup.wasteType}">Organic</td>
+                    <td th:text="${pickup.pickupLocation}">Main Street</td>
+                    <td th:text="${pickup.pickupDateTime}">2025-04-17T10:00</td>
+                    <td th:text="${pickup.status}">Completed</td>
+                    <td th:text="${pickup.userName}">john_doe</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="actions">
+            <a class="btn" th:href="@{/admin/reports}">Generate Another Report</a>
+            <a class="btn" th:href="@{/admin/dashboard}">Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

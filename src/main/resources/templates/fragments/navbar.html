@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="navbar">
+        <nav style="background: #1e3c72; padding: 15px; color: white; display: flex; justify-content: space-between; align-items: center;">
+            <div style="font-size: 20px;">
+                Smart Waste Management System
+            </div>
+            <div>
+                <a th:href="@{/profile}" style="color: white; margin-right: 20px; text-decoration: none;">Profile</a>
+                <form th:action="@{/logout}" method="post" style="display: inline;">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <button type="submit" style="background: none; border: none; color: white; text-decoration: underline; cursor: pointer;">
+                        Logout
+                    </button>
+                </form>
+            </div>
+        </nav>
+    </div>
+</body>
+</html>
